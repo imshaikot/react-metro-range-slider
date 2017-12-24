@@ -1,6 +1,6 @@
 {
   "name": "react-metro-range-slider",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Metro range slider",
   "main": "lib/ReactRangeSlider.js",
   "scripts": {
