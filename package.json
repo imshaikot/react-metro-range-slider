@@ -2,17 +2,22 @@
   "name": "react-metro-range-slider",
   "version": "0.1.2",
   "description": "Metro range slider",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "clean": "del lib",
     "test": "node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
     "start": "webpack-dev-server",
     "build:lib": "babel ./src --stage 0 -d ./lib",
-    "build": "webpack",
+    "build:less": "lessc ./src/components/ReactRangeSlider/style.less ./lib/index.css",
+    "build": "webpack && npm run build:lib && npm run build:less",
     "postpublish": "git push origin master --follow-tags",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish",
-    "patch": "npm version patch && npm publish"
+    "minor": "npm version minor && npm publish && npm run clean",
+    "major": "npm version major && npm publish && npm run clean",
+    "patch": "npm version patch && npm publish && npm run clean"
   },
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/imshaikot/react-range-slider.git"
