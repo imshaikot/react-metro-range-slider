@@ -3,7 +3,7 @@ import ReactRangeSlider from './components/ReactRangeSlider';
 
 class App extends React.Component {
 
-  state = {value: 0};
+  state = {valueX: 0, valueY: 0};
 
   componentWillMount() {
     // setInterval(() => {
@@ -15,8 +15,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <ReactRangeSlider onChange={(e, v) => console.log(v)} value={this.state.value} max={500} preValue={10} />
-        <ReactRangeSlider onChange={(e, v) => console.log(v)} value={this.state.value} max={500} preValue={100} />
+        <ReactRangeSlider onChange={(e, v) => {
+          // this.setState({
+          //   valueX: v
+          // });
+          console.log(v);
+        }} value={this.state.valueX} max={500} preValue={10} colorPalette={{}} />
+        <ReactRangeSlider onChange={(e, v) => null}  colorPalette={{}} max={500} preValue={100} />
       </div>
     );
   }

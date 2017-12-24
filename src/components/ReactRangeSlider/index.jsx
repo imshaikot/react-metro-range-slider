@@ -35,7 +35,7 @@ class ReactRangeSlider extends React.Component {
 
   componentDidMount() {
     const thumbSize = 20;
-    const sliderWidth = this.rangeElem.parentNode.clientWidth;
+    const sliderWidth = this.rangeElem.clientWidth;
     this.setState({
       fillWidth: this.calculateFill(sliderWidth),
       unfillWidth: (sliderWidth - 20) - this.calculateFill(sliderWidth)
@@ -48,9 +48,12 @@ class ReactRangeSlider extends React.Component {
   }
 
    calculateDiff(event) {
-     const sliderWidth = this.rangeElem.parentNode.clientWidth - 20;
+     const sliderWidth = this.rangeElem.clientWidth - 20;
      const sliderWithOffset = sliderWidth + this.rangeElem.offsetLeft;
-     if (event.pageX >= this.rangeElem.offsetLeft && event.pageX <= sliderWithOffset) {
+     // console.log('sliderWithOffset', sliderWithOffset);
+     // console.log('pageX', event.pageX);
+     // console.log('offsetLeft', this.rangeElem.offsetLeft)
+     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
        const diff = sliderWidth - (sliderWithOffset - event.pageX);
        const value = (((((diff * 100) / sliderWidth)) * this.state.max) / 100);
        // if (this.state.fillWidth === diff) return;
@@ -59,7 +62,8 @@ class ReactRangeSlider extends React.Component {
          unfillWidth: sliderWidth - diff,
          currentValue: value,
        });
-       typeof this.props.onChange === 'function' ? this.props.onChange(event, this.state.currentValue) : null;
+       // console.log('value', value);
+       typeof this.props.onChange === 'function' ? this.props.onChange(event, value) : null;
        setTimeout(() => this.removeTransitions(this.rangeElem), 250);
      }
    }
@@ -118,16 +122,18 @@ class ReactRangeSlider extends React.Component {
 
   render() {
     return (
-      <div className="slider" ref={ el => this.rangeElem = el } onMouseDown={e => this.seekIntent(e)}>
-        <div className="fill" style={{ width: this.state.fillWidth }}>
+      <div className="slider" style={ this.props.style } ref={ el => this.rangeElem = el } onMouseDown={e => this.seekIntent(e)}>
+        <div style={{ backgroundColor: this.props.colorPalette.fill }}
+        className="fill" style={{ width: this.state.fillWidth }}>
           <div className="fill-child" />
         </div>
 
-        <div className="thumb" style={{ left: this.state.fillWidth }}
+        <div style={{ borderColor: this.props.colorPalette.thumb }}
+        className="thumb" style={{ left: this.state.fillWidth }}
         onMouseDown={e => this.handleStart(e) } onMouseUp={ e => this.handleEnd(e) } />
 
         <div style={{ width: this.state.unfillWidth }} className="unfill">
-          <div className="unfill-child" />
+          <div style={{ backgroundColor: this.props.colorPalette.toFill }} className="unfill-child" />
         </div>
       </div>
     );
