@@ -1,5 +1,2 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './styles/App.less';
-ReactDOM.render(<App />, document.getElementById('root-target'));
+import ReactRangeslider from './components/ReactRangeslider'
+export default ReactRangeslider;
