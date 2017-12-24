@@ -2,7 +2,7 @@
   "name": "react-metro-range-slider",
   "version": "0.1.8",
   "description": "Metro range slider",
-  "main": "lib/ReactRangeSlider.js",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf lib",
     "test": "node_modules/.bin/eslint src/**/*.js src/**/*.jsx",

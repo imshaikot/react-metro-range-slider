@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'lib'),
-    filename: 'ReactRangeSlider.js',
+    filename: 'index.js',
     publicPath: '',
   },
   resolve: {
