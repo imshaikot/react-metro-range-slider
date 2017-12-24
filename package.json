@@ -6,7 +6,15 @@
   "scripts": {
     "test": "node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "postpublish": "git push origin master --follow-tags",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "patch": "npm version patch && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imshaikot/react-range-slider.git"
   },
   "keywords": [
     "react",
