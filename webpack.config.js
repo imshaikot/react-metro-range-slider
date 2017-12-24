@@ -5,7 +5,7 @@ const extractLESS = new ExtractTextPlugin('ReactRangeSlider.min.css');
 module.exports = {
   entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'lib'),
     filename: 'ReactRangeSlider.js',
     publicPath: '',
   },
