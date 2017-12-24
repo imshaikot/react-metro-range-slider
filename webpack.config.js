@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractLESS = new ExtractTextPlugin('ReactRangeSlider.min.css');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/components/ReactRangeSlider/index.jsx',
   output: {
     path: path.resolve(__dirname, 'lib'),
     filename: 'index.js',
@@ -29,5 +29,4 @@ module.exports = {
   plugins: [
     extractLESS,
   ],
-  devtool: 'cheap-module-source-map',
 };
