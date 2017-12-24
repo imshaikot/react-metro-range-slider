@@ -59,3 +59,16 @@
   position: relative;
   top: 10px;
 }
+.em-modal {
+  z-index: 2147484000;
+  position: absolute;
+  background-color: #2b2b2b;
+  border: 1px solid #767676;
+  font-family: sans-serif;
+}
+.em-modal .em-title {
+  padding: 5px 10px;
+  font-size: 15px;
+  color: #fff;
+  margin: 0;
+}

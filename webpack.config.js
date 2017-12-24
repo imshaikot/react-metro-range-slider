@@ -1,11 +1,12 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractLESS = new ExtractTextPlugin('ReactRangeSlider.min.css');
 
 module.exports = {
-  entry: './src/components/ReactRangeSlider/index.jsx',
+  entry: './src/App.jsx',
   output: {
-    path: path.resolve(__dirname, 'lib'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
     publicPath: '',
   },
@@ -28,5 +29,11 @@ module.exports = {
   },
   plugins: [
     extractLESS,
+    new HtmlWebpackPlugin({
+      template: `${__dirname}/src/index.html`,
+      filename: 'index.html',
+      inject: 'body',
+    }),
   ],
+  devtool: 'cheap-module-eval-source-map',
 };
