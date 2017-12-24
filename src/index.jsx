@@ -1,2 +1,2 @@
-import ReactRangeslider from './components/ReactRangeslider'
-export default ReactRangeslider;
+import ReactRangeSlider from './components/ReactRangeslider'
+export default ReactRangeSlider;
