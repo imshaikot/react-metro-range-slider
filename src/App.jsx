@@ -10,7 +10,8 @@ const App = () => (
     <ReactRangeSlider
       colorPalette={{}}
       style={{ width: 400 }}
-      max={10}
+      max={80}
+      min={-20}
       onChange={(e, v) => {
         console.info(v);
       }}

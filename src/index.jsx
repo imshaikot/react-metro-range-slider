@@ -17,6 +17,7 @@ class ReactRangeSlider extends React.PureComponent {
     super(props);
     this.state = {
       max: 100,
+      min: 0,
       currentValue: 5,
       fillWidth: 0,
       unfillWidth: 0,
@@ -30,7 +31,8 @@ class ReactRangeSlider extends React.PureComponent {
 
   componentWillMount() {
     this.setState({
-      max: this.props.max || 100,
+      max: this.props.max || this.state.max,
+      min: this.props.min || this.state.min,
       currentValue: this.props.preValue || 0,
     });
   }
@@ -58,7 +60,7 @@ class ReactRangeSlider extends React.PureComponent {
   }
 
   calculateFill(totalWidth, value) {
-    const fill = ((value || this.state.currentValue) * 100) / this.state.max;
+    const fill = ((value || this.state.currentValue) * 100) / (this.state.max);
     return ((fill * (totalWidth - 20)) / 100);
   }
 
@@ -67,9 +69,11 @@ class ReactRangeSlider extends React.PureComponent {
     const sliderWithOffset = sliderWidth + this.rangeElem.offsetLeft;
     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
       const diff = sliderWidth - (sliderWithOffset - event.pageX);
-      const value = (((((diff * 100) / sliderWidth)) * this.state.max) / 100);
+      const value = (((((diff * 100) / sliderWidth)) * (this.state.max)) / 100);
       // console.log('value', value);
-      if (typeof this.props.onChange === 'function' && value !== this.state.currentValue) this.props.onChange(event, value);
+      if (typeof this.props.onChange === 'function' && value !== this.state.currentValue) {
+        this.props.onChange(event, value + this.state.min);
+      }
       this.setState({
         fillWidth: diff,
         unfillWidth: sliderWidth - diff,
@@ -116,7 +120,7 @@ class ReactRangeSlider extends React.PureComponent {
         this.setState({
           modalOffsetLeft: event.pageX - 20,
           modalActive: true,
-          modalPredictionValue: value,
+          modalPredictionValue: value + this.state.min,
         });
       }
     }
