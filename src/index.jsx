@@ -151,8 +151,9 @@ class ReactRangeSlider extends React.PureComponent {
         <div style={{ width: this.state.unfillWidth }} className="unfill">
           <div style={{ backgroundColor: this.props.colorPalette.toFill }} className="unfill-child" />
         </div>
-        {this.props.onPreModal && this.state.modalActive ? <Tooltip offsetTop={this.state.modalOffsetTop}
-        offsetLeft={this.state.modalOffsetLeft} text={String(this.props.onPreModal(this.state.modalPredictionValue))} /> : null}
+        {typeof this.props.onPreModal === 'function' && this.state.modalActive ? <Tooltip offsetTop={this.state.modalOffsetTop}
+        offsetLeft={this.state.modalOffsetLeft}
+        text={this.props.onPreModal(this.state.modalPredictionValue) || this.state.modalPredictionValue} /> : null}
       </div>
     );
   }
