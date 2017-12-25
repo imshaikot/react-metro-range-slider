@@ -4,7 +4,7 @@
   "description": "Metro range slider",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
+    "test": "./node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
     "start": "webpack-dev-server",
     "clean": "rm ./lib/App.js",
     "build:lib": "babel ./src --stage 2 -d ./lib",
@@ -46,9 +46,11 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   }
 }

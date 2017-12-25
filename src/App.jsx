@@ -8,7 +8,7 @@ const App = () => (
   <div style={{ margin: '0 auto' }}>
     <div style={{width: 500, height: 400, backgroundColor: '#fefefe'}} />
     <ReactRangeSlider colorPalette={{}} style={{ width: 400 }}
-    max={10000}
+    max={10}
     onChange={(e, v) => {
       console.log(v);
     }} onPreModal={(val) => {

@@ -11,6 +11,12 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+.slider.cross-transition {
+  transition: width 250ms, left 150ms, border 150ms, height 150ms, width 150ms;
+}
+.slider.cross-transition-0 {
+  transition: width 0ms, left 0ms, border 150ms, height 150ms, width 150ms !important;
+}
 .slider .fill {
   width: 0;
   transition: width 0ms;
@@ -19,6 +25,7 @@
   left: 0;
   cursor: default;
   background-color: transparent;
+  transition: inherit;
 }
 .slider .unfill {
   width: 0;
@@ -28,6 +35,7 @@
   right: 0;
   cursor: default;
   background-color: transparent;
+  transition: inherit;
 }
 .slider .thumb {
   height: 18px;
@@ -37,7 +45,7 @@
   border-color: #55D6FD;
   border-radius: 50%;
   position: absolute;
-  transition: left 0ms, border 150ms, height 150ms, width 150ms;
+  transition: inherit;
   z-index: 5;
 }
 .slider .thumb:active {
@@ -52,12 +60,14 @@
   background-color: #55D6FD;
   position: relative;
   top: 10px;
+  transition: inherit;
 }
 .unfill-child {
   height: 2px;
   background-color: rgba(177, 177, 177, 0.9);
   position: relative;
   top: 10px;
+  transition: inherit;
 }
 .em-modal {
   z-index: 2147484000;
