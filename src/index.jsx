@@ -1,4 +1,5 @@
 import React from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import Tooltip from './cmp/tooltip';
 
@@ -46,6 +47,9 @@ class ReactRangeSlider extends React.PureComponent {
       unfillWidth: (sliderWidth - thumbSize) - this.calculateFill(sliderWidth),
     });
     /* eslint-enable */
+
+    // const resizeObserver = new ResizeObserver(this.handleUpdate)
+    // resizeObserver.observe(this.slider)
   }
 
   componentWillReceiveProps() {
@@ -139,13 +143,13 @@ class ReactRangeSlider extends React.PureComponent {
        } }
       onMouseDown={e => this.seekIntent(e)}
       onMouseMove={e => this.seekPrediction(e)} onMouseOut={e => this.deactiveModal(e)}>
-        <div style={{ backgroundColor: this.props.colorPalette.fill }}
+        <div
         className="fill" style={{ width: this.state.fillWidth }}>
-          <div className="fill-child" />
+          <div  style={{ backgroundColor: this.props.colorPalette.fill }} className="fill-child" />
         </div>
 
-        <div style={{ borderColor: this.props.colorPalette.thumb }}
-        className="thumb" style={{ left: this.state.fillWidth }}
+        <div
+        className="thumb" style={{ left: this.state.fillWidth, borderColor: this.props.colorPalette.thumb }}
         onMouseDown={e => this.handleStart(e) } onMouseUp={ e => this.handleEnd(e) } />
 
         <div style={{ width: this.state.unfillWidth }} className="unfill">
