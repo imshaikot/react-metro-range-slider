@@ -4,7 +4,7 @@
   "description": "Metro range slider",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
+    "test": "./node_modules/.bin/eslint ./src/*.jsx",
     "start": "webpack-dev-server",
     "clean": "rm ./lib/App.js",
     "build:lib": "babel ./src --stage 2 -d ./lib",

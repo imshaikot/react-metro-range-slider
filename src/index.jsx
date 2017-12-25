@@ -38,10 +38,12 @@ class ReactRangeSlider extends React.PureComponent {
   componentDidMount() {
     const thumbSize = 20;
     const sliderWidth = this.rangeElem.clientWidth;
+    /* eslint-disable */
     this.setState({
       fillWidth: this.calculateFill(sliderWidth),
       unfillWidth: (sliderWidth - thumbSize) - this.calculateFill(sliderWidth),
     });
+    /* eslint-enable */
   }
 
   componentWillReceiveProps() {

@@ -6,14 +6,16 @@ import './styles/style.less';
 
 const App = () => (
   <div style={{ margin: '0 auto' }}>
-    <div style={{width: 500, height: 400, backgroundColor: '#fefefe'}} />
-    <ReactRangeSlider colorPalette={{}} style={{ width: 400 }}
-    max={10}
-    onChange={(e, v) => {
-      console.log(v);
-    }} onPreModal={(val) => {
-      return Math.round(val)
-    }} />
+    <div style={{ width: 500, height: 400, backgroundColor: '#fefefe' }} />
+    <ReactRangeSlider
+      colorPalette={{}}
+      style={{ width: 400 }}
+      max={10}
+      onChange={(e, v) => {
+        console.info(v);
+      }}
+      onPreModal={val => Math.round(val)}
+    />
   </div>
 );
 
