@@ -33,19 +33,12 @@ class ReactRangeSlider extends React.Component {
   }
 
   componentDidMount() {
-    const thumbSize = 20;
-    const sliderWidth = this.rangeElem.clientWidth;
     /* eslint-disable */
     this.setState({  });
     /* eslint-enable */
 
     // const resizeObserver = new ResizeObserver(this.handleUpdate)
     // resizeObserver.observe(this.slider)
-  }
-
-  calculateFill(totalWidth, value) {
-    const fill = ((value || this.state.currentValue) * 100) / (this.state.max);
-    return ((fill * (totalWidth - 20)) / 100);
   }
 
   calculateDiff(event) {
@@ -96,19 +89,20 @@ class ReactRangeSlider extends React.Component {
     const sliderWithOffset = sliderWidth + this.rangeElem.offsetLeft;
     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
       const diff = sliderWidth - (sliderWithOffset - event.pageX);
-      const value = (((((diff * 100) / sliderWidth)) * this.state.max) / 100);
+      const value = (((((diff * 100) / sliderWidth)) * (this.props.max || 100)) / 100);
+      // console.log('offsetLeft', event.pageX -20);
       if (this.state.modalPredictionValue !== value) {
         this.setState({
-          modalOffsetLeft: event.pageX - 20,
+          modalOffsetLeft: (event.pageX - this.rangeElem.offsetLeft) - 20,
           modalActive: true,
-          modalPredictionValue: value + this.props.min,
+          modalPredictionValue: value + (this.props.min || 0),
         });
       }
     }
   }
 
   deactiveModal() {
-    this.setState({
+    if (this.state.modalActive) this.setState({
       modalActive: false,
     });
   }
