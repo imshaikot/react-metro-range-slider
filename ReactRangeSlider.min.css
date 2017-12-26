@@ -1,3 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.body {
+  margin: 0 auto;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #fefefe;
+}
+.body .box {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  padding: 50px;
+  margin: 50px;
+  text-align: left;
+}
+.body .box p {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .slider {
   height: 20px;
   width: 100%;
@@ -77,8 +99,9 @@
   font-family: sans-serif;
 }
 .em-modal .em-title {
-  padding: 5px 10px;
-  font-size: 15px;
+  margin: 0px !important;
+  padding: 5px 10px !important;
+  font-size: 15px !important;
   color: #fff;
   margin: 0;
 }
