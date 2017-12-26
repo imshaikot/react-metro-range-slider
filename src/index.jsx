@@ -32,19 +32,19 @@ class ReactRangeSlider extends React.Component {
     });
   }
 
-  componentWillReceiveProps(newProps) {
-    if ((newProps.value || 0) !== this.state.currentValue) {
-      this.state.currentValue = newProps.value;
-    }
-  }
-
   componentDidMount() {
     if (!this.rangeElem) return;
     /* eslint-disable */
     this.setState({  });
     /* eslint-enable */
-    const resizeObserver = new ResizeObserver(() => this.setState({}))
-    resizeObserver.observe(this.rangeElem)
+    const resizeObserver = new ResizeObserver(() => this.setState({}));
+    resizeObserver.observe(this.rangeElem);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if ((newProps.value || 0) !== this.state.currentValue) {
+      this.state.currentValue = newProps.value;
+    }
   }
 
   calculateDiff(event) {
@@ -107,22 +107,26 @@ class ReactRangeSlider extends React.Component {
   }
 
   deactiveModal() {
-    if (this.state.modalActive) this.setState({
-      modalActive: false,
-    });
+    if (this.state.modalActive) {
+      this.setState({
+        modalActive: false,
+      });
+    }
   }
 
   toFill() {
-    if (!this.rangeElem) return;
+    if (!this.rangeElem) return 0;
     const count = this.props.max || 100;
     const percentage = (100 * this.state.currentValue) / count;
     const sliderWidth = this.rangeElem.clientWidth - 20;
     const toFill = (sliderWidth - ((percentage * sliderWidth) / 100));
+    /* eslint-disable */
     return isFinite(toFill) ? toFill : sliderWidth;
+    /* eslint-enable */
   }
 
   fill() {
-    if (!this.rangeElem) return;
+    if (!this.rangeElem) return 0;
     const sliderWidth = this.rangeElem.clientWidth - 20;
     return sliderWidth - this.toFill();
   }
