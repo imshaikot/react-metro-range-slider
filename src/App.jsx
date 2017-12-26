@@ -15,7 +15,18 @@ class App extends React.Component {
       slider2val: 0,
       slider2start: 0,
       slider2end: 0,
+      asyncVal: 0,
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      if (this.state.asyncVal >= 100) {
+        this.setState({ asyncVal: 0 })
+      } else {
+        this.setState({ asyncVal: this.state.asyncVal + 1 })
+      }
+    }, 1000);
   }
 
   render() {
@@ -50,18 +61,19 @@ class App extends React.Component {
 
         <div className="box">
           <p>Sliders with different color palettes</p>
-          <Slider onChange={(e, v) => this.setState({
-            slider1: {
-              val: v,
-            }
-          })} preValue={25} style={{ marginTop: 10 }} colorPalette={{fill: '#F97D4E', toFill: '#939292', thumb: '#FD5412'}} />
+          <Slider preValue={25} style={{ marginTop: 10 }} colorPalette={{fill: '#F97D4E', toFill: '#939292', thumb: '#FD5412'}} />
           <Slider preValue={45} style={{ marginTop: 10 }} colorPalette={{fill: '#14B03B', toFill: '#DAF9C5', thumb: '#5E79F5'}} />
           <Slider preValue={15} style={{ marginTop: 10 }} colorPalette={{fill: '#ED2D2D', toFill: '#FA8080', thumb: '#6B6A6A'}} />
         </div>
-
+        
         <div className="box">
           <p>Slider with prediction tooltip (onPreModal)</p>
           <Slider onPreModal={val => Math.round(val)} />
+        </div>
+
+        <div className="box">
+          <p>Slider with setInterval/async value</p>
+          <Slider value={this.state.asyncVal} />
         </div>
       </div>
     );

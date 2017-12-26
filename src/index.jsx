@@ -32,6 +32,12 @@ class ReactRangeSlider extends React.Component {
     });
   }
 
+  componentWillReceiveProps(newProps) {
+    if ((newProps.value || 0) !== this.state.currentValue) {
+      this.state.currentValue = newProps.value;
+    }
+  }
+
   componentDidMount() {
     if (!this.rangeElem) return;
     /* eslint-disable */
