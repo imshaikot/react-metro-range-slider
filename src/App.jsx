@@ -65,7 +65,7 @@ class App extends React.Component {
           <Slider preValue={45} style={{ marginTop: 10 }} colorPalette={{fill: '#14B03B', toFill: '#DAF9C5', thumb: '#5E79F5'}} />
           <Slider preValue={15} style={{ marginTop: 10 }} colorPalette={{fill: '#ED2D2D', toFill: '#FA8080', thumb: '#6B6A6A'}} />
         </div>
-        
+
         <div className="box">
           <p>Slider with prediction tooltip (onPreModal)</p>
           <Slider onPreModal={val => Math.round(val)} />
