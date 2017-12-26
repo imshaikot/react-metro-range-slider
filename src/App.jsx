@@ -24,7 +24,7 @@ class App extends React.Component {
         <h1 style={{ marginTop: 30 }}>React Metro Range Slider </h1>
         <div className="box">
           <p>Basic default slider (Just tracking change)</p>
-          <Slider colorPalette={{}} onChange={(e, v) => this.setState({
+          <Slider max={300} colorPalette={{}} onChange={(e, v) => this.setState({
             slider1: {
               val: v,
             }
@@ -33,7 +33,7 @@ class App extends React.Component {
         </div>
         <div className="box">
           <p>Slider with start and end tracks</p>
-          <Slider max={200} min={50} colorPalette={{}} onChange={(e, v) => this.setState({
+          <Slider max={200} min={50} onChange={(e, v) => this.setState({
             slider2val: v
           })}
           onChangeStart={(e, v) => this.setState({
@@ -61,7 +61,7 @@ class App extends React.Component {
 
         <div className="box">
           <p>Slider with prediction tooltip (onPreModal)</p>
-          <Slider onPreModal={val => Math.round(val)} colorPalette={{}} />
+          <Slider onPreModal={val => Math.round(val)} />
         </div>
       </div>
     );

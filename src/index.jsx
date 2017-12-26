@@ -3,7 +3,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 import Tooltip from './cmp/tooltip';
 
-class ReactRangeSlider extends React.PureComponent {
+class ReactRangeSlider extends React.Component {
   static addTransitions(elem) {
     elem.classList.remove('cross-transition');
     elem.classList.add('cross-transition');
@@ -17,11 +17,7 @@ class ReactRangeSlider extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      max: 100,
-      min: 0,
       currentValue: 5,
-      fillWidth: 0,
-      unfillWidth: 0,
       active: false,
       modalActive: false,
       modalOffsetTop: -35,
@@ -32,8 +28,6 @@ class ReactRangeSlider extends React.PureComponent {
 
   componentWillMount() {
     this.setState({
-      max: this.props.max || this.state.max,
-      min: this.props.min || this.state.min,
       currentValue: this.props.preValue || 0,
     });
   }
@@ -42,25 +36,11 @@ class ReactRangeSlider extends React.PureComponent {
     const thumbSize = 20;
     const sliderWidth = this.rangeElem.clientWidth;
     /* eslint-disable */
-    this.setState({
-      fillWidth: this.calculateFill(sliderWidth),
-      unfillWidth: (sliderWidth - thumbSize) - this.calculateFill(sliderWidth),
-    });
+    this.setState({  });
     /* eslint-enable */
 
     // const resizeObserver = new ResizeObserver(this.handleUpdate)
     // resizeObserver.observe(this.slider)
-  }
-
-  componentWillReceiveProps() {
-    if (!this.rangeElem) return;
-    const thumbSize = 20;
-    const sliderWidth = this.rangeElem.clientWidth - thumbSize;
-    const fillWidth = this.calculateFill(sliderWidth, (this.props.value || 0));
-    this.setState({
-      fillWidth,
-      unfillWidth: sliderWidth - fillWidth,
-    });
   }
 
   calculateFill(totalWidth, value) {
@@ -73,14 +53,11 @@ class ReactRangeSlider extends React.PureComponent {
     const sliderWithOffset = sliderWidth + this.rangeElem.offsetLeft;
     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
       const diff = sliderWidth - (sliderWithOffset - event.pageX);
-      const value = (((((diff * 100) / sliderWidth)) * (this.state.max)) / 100);
-      // console.log('value', value);
+      const value = (((((diff * 100) / sliderWidth)) * (this.props.max || 100)) / 100);
       if (typeof this.props.onChange === 'function' && value !== this.state.currentValue) {
-        this.props.onChange(event, value + this.state.min);
+        this.props.onChange(event, value + (this.props.min || 0));
       }
       this.setState({
-        fillWidth: diff,
-        unfillWidth: sliderWidth - diff,
         currentValue: value,
       });
       setTimeout(() => ReactRangeSlider.removeTransitions(this.rangeElem), 250);
@@ -98,14 +75,14 @@ class ReactRangeSlider extends React.PureComponent {
     this.setState({ active: true });
     document.addEventListener('mousemove', this.handleDrag.bind(this));
     document.addEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue);
+    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue + this.props.min);
   }
 
   handleEnd(event) {
     this.setState({ active: false });
     document.removeEventListener('mousemove', this.handleDrag.bind(this));
     document.removeEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue);
+    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue + this.props.min);
   }
 
   seekIntent(event) {
@@ -124,7 +101,7 @@ class ReactRangeSlider extends React.PureComponent {
         this.setState({
           modalOffsetLeft: event.pageX - 20,
           modalActive: true,
-          modalPredictionValue: value + this.state.min,
+          modalPredictionValue: value + this.props.min,
         });
       }
     }
@@ -135,8 +112,25 @@ class ReactRangeSlider extends React.PureComponent {
       modalActive: false,
     });
   }
+
+  toFill() {
+    if (!this.rangeElem) return;
+    const count = this.props.max || 100;
+    const percentage = (100 * this.state.currentValue) / count;
+    const sliderWidth = this.rangeElem.clientWidth - 20;
+    const toFill = (sliderWidth - ((percentage * sliderWidth) / 100));
+    return isFinite(toFill) ? toFill : sliderWidth;
+  }
+
+  fill() {
+    if (!this.rangeElem) return;
+    const sliderWidth = this.rangeElem.clientWidth - 20;
+    return sliderWidth - this.toFill();
+  }
+
   /* eslint-disable */
   render() {
+    const colors = this.props.colorPalette || {};
     return (
       <div className="slider" style={ this.props.style } ref={ (el) => {
         if (!this.rangeElem) this.rangeElem = el;
@@ -144,16 +138,16 @@ class ReactRangeSlider extends React.PureComponent {
       onMouseDown={e => this.seekIntent(e)}
       onMouseMove={e => this.seekPrediction(e)} onMouseOut={e => this.deactiveModal(e)}>
         <div
-        className="fill" style={{ width: this.state.fillWidth }}>
-          <div  style={{ backgroundColor: this.props.colorPalette.fill }} className="fill-child" />
+        className="fill" style={{ width: this.fill() }}>
+          <div  style={{ backgroundColor: colors.fill }} className="fill-child" />
         </div>
 
         <div
-        className="thumb" style={{ left: this.state.fillWidth, borderColor: this.props.colorPalette.thumb }}
+        className="thumb" style={{ left: this.fill(), borderColor: colors.thumb }}
         onMouseDown={e => this.handleStart(e) } onMouseUp={ e => this.handleEnd(e) } />
 
-        <div style={{ width: this.state.unfillWidth }} className="unfill">
-          <div style={{ backgroundColor: this.props.colorPalette.toFill }} className="unfill-child" />
+        <div style={{ width: this.toFill() }} className="unfill">
+          <div style={{ backgroundColor: colors.toFill }} className="unfill-child" />
         </div>
         {typeof this.props.onPreModal === 'function' && this.state.modalActive ? <Tooltip offsetTop={this.state.modalOffsetTop}
         offsetLeft={this.state.modalOffsetLeft}
