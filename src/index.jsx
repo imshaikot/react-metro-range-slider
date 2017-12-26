@@ -32,19 +32,19 @@ class ReactRangeSlider extends React.Component {
     });
   }
 
-  componentWillReceiveProps(newProps) {
-    if ((newProps.value || 0) !== this.state.currentValue) {
-      this.state.currentValue = newProps.value;
-    }
-  }
-
   componentDidMount() {
     if (!this.rangeElem) return;
     /* eslint-disable */
     this.setState({  });
     /* eslint-enable */
-    const resizeObserver = new ResizeObserver(() => this.setState({}))
-    resizeObserver.observe(this.rangeElem)
+    const resizeObserver = new ResizeObserver(() => this.setState({}));
+    resizeObserver.observe(this.rangeElem);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.value !== undefined && newProps.value !== this.state.currentValue) {
+      this.state.currentValue = newProps.value;
+    }
   }
 
   calculateDiff(event) {
@@ -74,14 +74,14 @@ class ReactRangeSlider extends React.Component {
     this.setState({ active: true });
     document.addEventListener('mousemove', this.handleDrag.bind(this));
     document.addEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue + this.props.min);
+    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue + (this.props.min || 0));
   }
 
   handleEnd(event) {
     this.setState({ active: false });
     document.removeEventListener('mousemove', this.handleDrag.bind(this));
     document.removeEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue + this.props.min);
+    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue + (this.props.min || 0));
   }
 
   seekIntent(event) {
@@ -107,22 +107,26 @@ class ReactRangeSlider extends React.Component {
   }
 
   deactiveModal() {
-    if (this.state.modalActive) this.setState({
-      modalActive: false,
-    });
+    if (this.state.modalActive) {
+      this.setState({
+        modalActive: false,
+      });
+    }
   }
 
   toFill() {
-    if (!this.rangeElem) return;
+    if (!this.rangeElem) return 0;
     const count = this.props.max || 100;
     const percentage = (100 * this.state.currentValue) / count;
     const sliderWidth = this.rangeElem.clientWidth - 20;
     const toFill = (sliderWidth - ((percentage * sliderWidth) / 100));
+    /* eslint-disable */
     return isFinite(toFill) ? toFill : sliderWidth;
+    /* eslint-enable */
   }
 
   fill() {
-    if (!this.rangeElem) return;
+    if (!this.rangeElem) return 0;
     const sliderWidth = this.rangeElem.clientWidth - 20;
     return sliderWidth - this.toFill();
   }
