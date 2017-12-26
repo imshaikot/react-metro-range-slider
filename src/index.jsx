@@ -33,12 +33,12 @@ class ReactRangeSlider extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.rangeElem) return;
     /* eslint-disable */
     this.setState({  });
     /* eslint-enable */
-
-    // const resizeObserver = new ResizeObserver(this.handleUpdate)
-    // resizeObserver.observe(this.slider)
+    const resizeObserver = new ResizeObserver(() => this.setState({}))
+    resizeObserver.observe(this.rangeElem)
   }
 
   calculateDiff(event) {
@@ -90,7 +90,6 @@ class ReactRangeSlider extends React.Component {
     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
       const diff = sliderWidth - (sliderWithOffset - event.pageX);
       const value = (((((diff * 100) / sliderWidth)) * (this.props.max || 100)) / 100);
-      // console.log('offsetLeft', event.pageX -20);
       if (this.state.modalPredictionValue !== value) {
         this.setState({
           modalOffsetLeft: (event.pageX - this.rangeElem.offsetLeft) - 20,
