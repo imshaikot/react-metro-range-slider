@@ -42,7 +42,7 @@ class ReactRangeSlider extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if ((newProps.value || 0) !== this.state.currentValue) {
+    if (newProps.value !== undefined && newProps.value !== this.state.currentValue) {
       this.state.currentValue = newProps.value;
     }
   }
@@ -74,14 +74,14 @@ class ReactRangeSlider extends React.Component {
     this.setState({ active: true });
     document.addEventListener('mousemove', this.handleDrag.bind(this));
     document.addEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue + this.props.min);
+    if (typeof this.props.onChangeStart === 'function') this.props.onChangeStart(event, this.state.currentValue + (this.props.min || 0));
   }
 
   handleEnd(event) {
     this.setState({ active: false });
     document.removeEventListener('mousemove', this.handleDrag.bind(this));
     document.removeEventListener('mouseup', this.handleEnd.bind(this));
-    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue + this.props.min);
+    if (typeof this.props.onChangeEnd === 'function') this.props.onChangeEnd(event, this.state.currentValue + (this.props.min || 0));
   }
 
   seekIntent(event) {
