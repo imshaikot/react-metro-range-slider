@@ -1,12 +1,16 @@
 
 <h1 align="center"> Metro layout range slider for React </h1>
 <p align="center">
-  Tiny react component for modern metro layout based range slider prototype.
+  Tiny react UI component for modern metro layout based range slider prototype.
 </p>
 <p align="center">
   <a href="https://www.npmjs.org/package/react-metro-range-slider"><img src="https://img.shields.io/npm/v/react-metro-range-slider.svg?style=flat-square" /></a>
   <a href="https://travis-ci.org/imshaikot/react-metro-range-slider"><img src="https://api.travis-ci.org/imshaikot/react-metro-range-slider.svg" /></a>
 </p>
+
+## Demo
+
+<a href="https://imshaikot.github.io/react-metro-range-slider/">https://imshaikot.github.io/react-metro-range-slider/</a>
 
 ## Installation
 
@@ -20,7 +24,7 @@ There's a lot of other range-slider available for different design purposes - th
 It's very easy to start with this range slider if you're using any bundler (whether CommonJS or ES6 import).
 
 ```js
-// Using an ES6
+// Using ES6
 import RangeSlider from 'react-metro-range-slider';
 import 'react-metro-range-slider/lib/index.css';
 
