@@ -24,6 +24,7 @@ class ReactRangeSlider extends React.Component {
     preValue: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
+    disabled: PropTypes.bool,
     /* eslint-disable */
     colorPalette: PropTypes.object,
     /* eslint-enable */
@@ -33,6 +34,7 @@ class ReactRangeSlider extends React.Component {
     preValue: 0,
     min: 0,
     max: 100,
+    disabled: false,
     colorPalette: {},
     onChange: null,
     onChangeStart: null,
@@ -97,6 +99,7 @@ class ReactRangeSlider extends React.Component {
 
 
   handleStart(event) {
+    if (this.props.disabled) return;
     this.setState({ active: true });
     document.addEventListener('mousemove', this.handleDrag.bind(this));
     document.addEventListener('mouseup', this.handleEnd.bind(this));
@@ -111,12 +114,13 @@ class ReactRangeSlider extends React.Component {
   }
 
   seekIntent(event) {
+    if (this.props.disabled) return null;
     ReactRangeSlider.addTransitions(this.rangeElem);
-    this.calculateDiff(event);
+    return this.calculateDiff(event);
   }
 
   seekPrediction(event) {
-    if (!this.props.onPreModal) return;
+    if (!this.props.onPreModal || this.props.disabled) return;
     const sliderWidth = this.rangeElem.clientWidth - 20;
     const sliderWithOffset = sliderWidth + this.rangeElem.offsetLeft;
     if ((event.pageX) >= this.rangeElem.offsetLeft && (event.pageX) <= sliderWithOffset) {
@@ -159,7 +163,8 @@ class ReactRangeSlider extends React.Component {
 
   /* eslint-disable */
   render() {
-    const colors = this.props.colorPalette || {};
+    const colors = this.props.disabled ? { toFill: '#babbbc',
+      fill: '#5e5e5e', thumb: '#999797' } : this.props.colorPalette || {};
     return (
       <div className="slider" style={ this.props.style } ref={ (el) => {
         if (!this.rangeElem) this.rangeElem = el;
