@@ -1,5 +1,6 @@
 import React from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
+import PropTypes from 'prop-types';
 
 import Tooltip from './cmp/tooltip';
 
@@ -12,6 +13,31 @@ class ReactRangeSlider extends React.Component {
   static removeTransitions(elem) {
     elem.classList.add('cross-transition');
     elem.classList.remove('cross-transition');
+  }
+
+  static propTypes = {
+    onChange: PropTypes.func,
+    onChangeStart: PropTypes.func,
+    onChangeEnd: PropTypes.func,
+    onPreModal: PropTypes.func,
+
+    preValue: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    /* eslint-disable */
+    colorPalette: PropTypes.object,
+    /* eslint-enable */
+  };
+
+  static defaultProps = {
+    preValue: 0,
+    min: 0,
+    max: 100,
+    colorPalette: {},
+    onChange: null,
+    onChangeStart: null,
+    onChangeEnd: null,
+    onPreModal: null,
   }
 
   constructor(props) {
