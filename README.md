@@ -5,6 +5,9 @@
 </p>
 <p align="center">
   <a href="https://www.npmjs.org/package/react-metro-range-slider"><img src="https://img.shields.io/npm/v/react-metro-range-slider.svg?style=flat-square" /></a>
+  <a href="https://github.com/imshaikot/react-metro-range-slider/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/imshaikot/react-metro-range-slider.svg">
+  </a>
   <a href="https://travis-ci.org/imshaikot/react-metro-range-slider"><img src="https://api.travis-ci.org/imshaikot/react-metro-range-slider.svg" /></a>
 </p>
 
@@ -66,6 +69,8 @@ class MyComponent extends React.Component {
         max={50} // [Optional] [Default: 100]
         min={-20} // [Optional] [Default: 0]
         preValue={10} // [Optional] [Default: 0] to set prefilled value
+
+        disabled={true} // [Optional] [Default: false] to set the slider in dsiabled state
 
         value={0} // [Optional] this one is very important - it won't update on change and you shouldn't assign the updated value on it. The purpose of using this prop is to set any data to set during the runtime (ex. any async value)
 
