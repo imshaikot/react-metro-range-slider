@@ -65,14 +65,18 @@ class ReactRangeSlider extends React.Component {
     /* eslint-disable */
     this.setState({  });
     /* eslint-enable */
-    const resizeObserver = new ResizeObserver(() => this.setState({}));
-    resizeObserver.observe(this.rangeElem);
+    this.resizeObserver = new ResizeObserver(() => this.setState({}));
+    this.resizeObserver.observe(this.rangeElem);
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.value !== undefined && newProps.value !== this.state.currentValue) {
       this.state.currentValue = newProps.value;
     }
+  }
+
+  componentWillUnmount() {
+    this.resizeObserver.disconnect();
   }
 
   calculateDiff(event) {
